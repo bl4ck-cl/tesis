@@ -1,15 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import Sidebar from './Sidebar'
+import Sidebar from './components/Sidebar/Sidebar'
 import * as serviceWorker from './serviceWorker';
+import { BrowserRouter as Router, Switch, Route, Link, BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Sidebar />
+    <BrowserRouter>
+      <Sidebar />
+    </BrowserRouter>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

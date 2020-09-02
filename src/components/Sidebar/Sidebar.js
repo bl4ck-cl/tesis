@@ -16,68 +16,13 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
-import App from './App'
-
-const drawerWidth = 240;
-
-const styles = (theme) => ({
-  root: {
-    display: "flex",
-  },
-  appBar: {
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginLeft: 12,
-    marginRight: 20,
-  },
-  hide: {
-    display: "none",
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  drawerHeader: {
-    display: "flex",
-    alignItems: "center",
-    padding: "0 8px",
-    ...theme.mixins.toolbar,
-    justifyContent: "flex-end",
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing.unit * 0,
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: -drawerWidth,
-  },
-  contentShift: {
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
-  },
-});
+import MapIcon from "@material-ui/icons/Map";
+import StoreIcon from "@material-ui/icons/Store";
+import Map from '../Maps/Maps'
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import styles from './Styles'
+import { Icon } from "@material-ui/core";
+import HomeIcon from "@material-ui/icons/Home";
 
 
 class PersistentDrawerLeft extends React.Component {
@@ -93,10 +38,16 @@ class PersistentDrawerLeft extends React.Component {
     this.setState({ open: false });
   };
 
+  iconos = [
+    { Nombre: "Home", Icon: <HomeIcon /> },
+    { Nombre: "Mapa", Icon: <MapIcon /> },
+    { Nombre: "Clientes", Icon: <StoreIcon /> },
+  ];
+
   render() {
     const { classes, theme } = this.props;
     const { open } = this.state;
-
+    //console.log(styles(theme).linkTo)
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -140,41 +91,26 @@ class PersistentDrawerLeft extends React.Component {
           </div>
           <Divider />
           <List>
-            {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
+            <Router>
+              {["Home", "Mapa", "Clientes"].map((text, index) => (
+                <ListItem button key={text}>
+                  <ListItemIcon>
+                    {/* {index % 2 === 0 ? <MapIcon /> : <StoreIcon />} */}
+                    {this.iconos.map((Icon) => {
+                      if (Icon.Nombre === text) return Icon.Icon;
+                    })}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              ))}
+            </Router>
           </List>
-          <Divider />
-          <List>
-            {["All mail", "Trash", "Spam"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-          <Divider />
         </Drawer>
         <main
           className={classNames(classes.content, {
             [classes.contentShift]: open,
           })}
-        >
-          <App
-            isMarkerShown
-            googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVACQHjPUjNm2kQ9ova72zU8iLxGBAoa4&v=3.exp&libraries=geometry,drawing,places"
-            loadingElement={<div style={{ height: `100%` }} />}
-            containerElement={<div style={{ height: `100vh` }} />}
-            mapElement={<div style={{ height: `100%` }} />}
-          />
-        </main>
+        ></main>
       </div>
     );
   }
