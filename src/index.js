@@ -1,14 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Sidebar from './components/Sidebar/Sidebar'
+import App from "./App"
 import * as serviceWorker from './serviceWorker';
-import { BrowserRouter as Router, Switch, Route, Link, BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Sidebar />
-    </BrowserRouter>
+      <App />
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -46,6 +46,7 @@ const styles = (theme) => ({
   content: {
     flexGrow: 1,
     padding: 0,
+    posisiton: "initial",
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -58,6 +59,10 @@ const styles = (theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginLeft: 0,
+  },
+  textContent: {
+    marginTop: 50,
+    padding: 10,
   },
 });
 

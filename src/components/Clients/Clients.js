@@ -1,0 +1,16 @@
+import React from "react";
+
+const Clients = () => {
+  return (
+    <div>
+      <h1>
+        SAJKBDASJKDSAKSJDFKJSDNFKJSDANFKJNDKFJNADSKFJDAS.
+        KSDFNBKJSDFHDSBFAJHDSJA DSAFBJSAHDFBJHABDSF
+        HSDABFJBADFJHBAJSDHFBJHBDFJAHFBJDSAHBFJHDBF JSDAJ BFJDSAH BJASBF
+        JHASBDFJAHBFJHBDSJAHFB JDSBFJH Home
+      </h1>
+    </div>
+  );
+};
+
+export default Clients;

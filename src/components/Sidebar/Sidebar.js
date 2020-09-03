@@ -18,11 +18,13 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import MapIcon from "@material-ui/icons/Map";
 import StoreIcon from "@material-ui/icons/Store";
+import Home from '../Home/Home'
 import Map from '../Maps/Maps'
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Clients from "../Clients/Clients";
+import { Switch, Route, Link, BrowserRouter } from "react-router-dom";
 import styles from './Styles'
-import { Icon } from "@material-ui/core";
 import HomeIcon from "@material-ui/icons/Home";
+
 
 
 class PersistentDrawerLeft extends React.Component {
@@ -71,29 +73,29 @@ class PersistentDrawerLeft extends React.Component {
             </Typography>
           </Toolbar>
         </AppBar>
-        <Drawer
-          className={classes.drawer}
-          variant="persistent"
-          anchor="left"
-          open={open}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        >
-          <div className={classes.drawerHeader}>
-            <IconButton onClick={this.handleDrawerClose}>
-              {theme.direction === "ltr" ? (
-                <ChevronLeftIcon />
-              ) : (
-                <ChevronRightIcon />
-              )}
-            </IconButton>
-          </div>
-          <Divider />
-          <List>
-            <Router>
-              {["Home", "Mapa", "Clientes"].map((text, index) => (
-                <ListItem button key={text}>
+        <BrowserRouter>
+          <Drawer
+            className={classes.drawer}
+            variant="persistent"
+            anchor="left"
+            open={open}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+          >
+            <div className={classes.drawerHeader}>
+              <IconButton onClick={this.handleDrawerClose}>
+                {theme.direction === "ltr" ? (
+                  <ChevronLeftIcon />
+                ) : (
+                  <ChevronRightIcon />
+                )}
+              </IconButton>
+            </div>
+            <Divider />
+            <List>
+              {["Home", "Mapa", "Clientes"].map((text) => (
+                <ListItem button key={text} component={Link} to={"/" + text}>
                   <ListItemIcon>
                     {/* {index % 2 === 0 ? <MapIcon /> : <StoreIcon />} */}
                     {this.iconos.map((Icon) => {
@@ -103,14 +105,34 @@ class PersistentDrawerLeft extends React.Component {
                   <ListItemText primary={text} />
                 </ListItem>
               ))}
-            </Router>
-          </List>
-        </Drawer>
-        <main
-          className={classNames(classes.content, {
-            [classes.contentShift]: open,
-          })}
-        ></main>
+            </List>
+          </Drawer>
+          <main
+            className={classNames(classes.content, {
+              [classes.contentShift]: open,
+            })}
+          >
+            <Switch>
+              <Route
+                path="/Home"
+                render={() => (
+                  <div style={styles(theme).textContent}>
+                    <Home />
+                  </div>
+                )}
+              />
+              <Route path="/Mapa" render={() => <Map />} />
+              <Route
+                path="/Clientes"
+                render={() => (
+                  <div style={styles(theme).textContent}>
+                    <Clients />
+                  </div>
+                )}
+              />
+            </Switch>
+          </main>
+        </BrowserRouter>
       </div>
     );
   }
